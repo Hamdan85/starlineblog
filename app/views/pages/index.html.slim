@@ -1,0 +1,24 @@
+#masthead
+  .container
+    .row
+      .col-md-7
+        h1
+          | Starline
+        p.lead Blog
+  /! /cont
+.container
+  .row
+    .col-md-12
+      .panel
+        .panel-body
+          /! /stories
+
+          - @posts.each do |post|
+            = render :partial => 'pages/shared/post', locals: {post: post}
+
+
+          /! /stories
+          a.btn.btn-primary.pull-right.btnNext href="/" 
+            | More
+            i.glyphicon.glyphicon-chevron-right
+              /! /col-12

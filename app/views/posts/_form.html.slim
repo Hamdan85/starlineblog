@@ -1,0 +1,19 @@
+= form_for @post, html: { class: "form form-horizontal post" } do |f|
+  .form-group
+    = f.label :title, :class => 'control-label'
+    .controls
+      = f.text_field :title, :class => 'form-control'
+    = error_span(@post[:title])
+  .form-group
+    = f.label :post, :class => 'control-label'
+    .controls
+      = f.text_area :post, :class => 'form-control'
+    = error_span(@post[:post])
+  .form-group
+    = f.label :scheduled_to, :class => 'control-label'
+    .controls
+      = f.date_field :scheduled_to, :class => 'form-control'
+    = error_span(@post[:scheduled_to])
+  = f.submit nil, :class => 'btn btn-primary'
+  '
+  = link_to t('.cancel', :default => t("helpers.links.cancel")), posts_path, :class => 'btn'

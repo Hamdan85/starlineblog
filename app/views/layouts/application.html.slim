@@ -1,0 +1,42 @@
+doctype html
+html
+
+  = render 'layouts/shared/header'
+
+  body
+    = render 'layouts/shared/topbar'
+
+    /! Page Content
+    = yield
+
+    hr
+
+    #footer.container
+      .row
+        .col.col-sm-12
+          h1 Follow Us
+          .btn-group
+            a.btn.btn-twitter.btn-lg href="#" 
+              i.icon-twitter.icon-large
+              | Twitter
+            a.btn.btn-facebook.btn-lg href="#" 
+              i.icon-facebook.icon-large
+              | Facebook
+            a.btn.btn-google-plus.btn-lg href="#" 
+              i.icon-google-plus.icon-large
+              | Google+
+    hr
+
+    footer
+      .container
+        .row
+          .col-sm-6
+            ul.list-inline
+              li
+                i.icon-facebook.icon-2x
+              li
+                i.icon-twitter.icon-2x
+              li
+                i.icon-google-plus.icon-2x
+              li
+                i.icon-pinterest.icon-2x

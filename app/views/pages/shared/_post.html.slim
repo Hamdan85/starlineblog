@@ -1,0 +1,30 @@
+.row
+  br
+  .col-md-2.col-sm-3.text-center
+    = link_to user_path(post.user), class: 'story-img'
+      img.img-circle src="//placehold.it/100" style="width:100px;height:100px" /
+  .col-md-10.col-sm-9
+    h3
+      = post.title.titleize
+    .row
+      .col-xs-9
+        p
+          = post.post[0.. 300]
+        p.lead
+          = link_to 'Ler Mais', user_post_path(post.user, post), class: 'btn btn-default'
+        p.pull-right
+          span.label.label-default keyword
+          span.label.label-default tag
+          span.label.label-default post
+        ul.list-inline
+          li
+            a href="#"
+              = post.scheduled_to
+          li
+            a href="#"
+              i.glyphicon.glyphicon-comment
+              = "#{post.comments.count} Comentários"
+      .col-xs-3
+    br
+    br
+  hr
