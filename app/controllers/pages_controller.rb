@@ -11,7 +11,7 @@ class PagesController < ApplicationController
     #seleciona apenas posts em que a data de publicação chegou ou ja passou
     @posts = Post.where(
         'scheduled_to <= :now',
-        :now => Time.now
+        :now => Time.zone.now
     ).page(page).per(5)
 
   end
