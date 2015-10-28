@@ -3,9 +3,11 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  #antes de qualquer ação, filtrar controlador do controle de usuarios para definir os parametros
+  #permitidos a edição (SQL INJECTION PREVENTION SYSTEM --> SANITIZE)
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-
+  #permite que o controladore de usuario faça login independente de em que página esteja
   def after_update_path_for(resource)
     request.referer
   end
