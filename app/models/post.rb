@@ -21,7 +21,7 @@ class Post < ActiveRecord::Base
   validate :scheduled_to_is_in_future?
 
   def scheduled_to_is_in_future?
-    errors.add(:scheduled_to, 'A data de publicação precisa estar no futuro') if self.scheduled_to.nil? || self.scheduled_to < Time.now.in_time_zone
+    errors.add(:scheduled_to, 'A data de publicação precisa estar no futuro') if self.scheduled_to.nil? || self.scheduled_to < Time.zone.now
   end
 
 end
