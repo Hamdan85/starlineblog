@@ -16,7 +16,7 @@
       p
         span.glyphicon.glyphicon-time
         | Postagem:
-        - if @post.scheduled_to > Date.today
+        - if @post.scheduled_to > Time.zone.now
           = "Agendado para #{@post.scheduled_to}"
         - else
           = time_ago_in_words(@post.scheduled_to)
