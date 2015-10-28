@@ -1,13 +1,10 @@
 Rails.application.routes.draw do
-  resources :posts
   root 'pages#index'
-
-
 
   devise_for :users
 
   resources :users do
-    resources :posts do
+    resources :posts, :except => [:index] do
       resources :comments, :except => :show
     end
   end

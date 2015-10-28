@@ -1,0 +1,10 @@
+.media
+  .media-body
+    h4.media-heading
+      = comment.name
+    small
+      | Publicado a 
+      = time_ago_in_words(comment.created_at) unless comment.created_at.blank?
+    p
+      = comment.comment
+hr

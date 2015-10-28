@@ -1,19 +1,29 @@
-= form_for @post, html: { class: "form form-horizontal post" } do |f|
-  .form-group
-    = f.label :title, :class => 'control-label'
-    .controls
-      = f.text_field :title, :class => 'form-control'
-    = error_span(@post[:title])
-  .form-group
-    = f.label :post, :class => 'control-label'
-    .controls
-      = f.text_area :post, :class => 'form-control'
-    = error_span(@post[:post])
-  .form-group
-    = f.label :scheduled_to, :class => 'control-label'
-    .controls
-      = f.date_field :scheduled_to, :class => 'form-control'
-    = error_span(@post[:scheduled_to])
-  = f.submit nil, :class => 'btn btn-primary'
-  '
-  = link_to t('.cancel', :default => t("helpers.links.cancel")), posts_path, :class => 'btn'
+= form_for [@post.user, @post], html: { class: "form form-horizontal post" } do |f|
+
+  - if @post.errors.any?
+    p
+      = pluralize(@post.errors.count, 'erros')
+      |  impediram que o post fosse salvo:
+      ul
+        - @post.errors.full_messages.each do |message|
+          li
+            = message
+
+  = f.text_field :title, :class => 'form-control', placeholder: 'Título'
+
+  = f.label :post, :class => 'control-label'
+  = f.text_area :post, :class => 'form-control', placeholder: 'Digite seu post aqui...'
+
+  = f.label 'Agendado para:', :class => 'control-label'
+  #datetimepicker1.input-group.date
+    = f.text_field :scheduled_to, :class => 'form-control'
+    span.input-group-addon
+      span.glyphicon.glyphicon-calendar
+
+  = f.submit 'Salvar', :class => 'btn btn-primary'
+  = link_to 'Cancelar', user_path(current_user), :class => 'btn'
+
+javascript:
+  $('#datetimepicker1').datetimepicker({
+    locale: 'pt-BR'
+  });

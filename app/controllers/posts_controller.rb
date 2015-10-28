@@ -1,15 +1,11 @@
 class PostsController < ApplicationController
+  before_action :set_user, except: :new
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-
-  # GET /posts
-  # GET /posts.json
-  def index
-    @posts = Post.all
-  end
 
   # GET /posts/1
   # GET /posts/1.json
   def show
+    @comment = @post.comments.new
   end
 
   # GET /posts/new
@@ -28,10 +24,10 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
-        format.json { render :show, status: :created, location: @post }
+        format.html { redirect_to user_post_path(@post.user, @post), notice: 'Post was successfully created.' }
+        format.json { render :show, status: :created, location: user_post_path(@post.user, @post) }
       else
-        format.html { render :new }
+        format.html { render 'posts/new' }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
@@ -42,10 +38,10 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-        format.json { render :show, status: :ok, location: @post }
+        format.html { redirect_to user_post_path(@post.user, @post), notice: 'Post was successfully updated.' }
+        format.json { render :show, status: :ok, location: user_post_path(@post.user, @post) }
       else
-        format.html { render :edit }
+        format.html { render 'posts/edit' }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
@@ -56,15 +52,18 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
+      format.html { redirect_to user_path(current_user), notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_user
+      @user = User.find(params[:user_id])
+    end
     def set_post
-      @post = Post.find(params[:id])
+      @post = @user.posts.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

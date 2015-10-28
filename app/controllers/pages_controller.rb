@@ -8,8 +8,8 @@ class PagesController < ApplicationController
     end
 
     @posts = Post.where(
-        'scheduled_to <= :today',
-        :today => Date.today
+        'scheduled_to <= :now',
+        :now => Time.now
     ).page(page).per(5)
 
   end

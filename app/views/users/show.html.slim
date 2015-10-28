@@ -18,8 +18,4 @@
 
 
           /! /stories
-          a.btn.btn-primary.pull-right.btnNext href="/"
-            | More
-            i.glyphicon.glyphicon-chevron-right
-              /! /col-12
           = link_to 'Novo Post', new_user_post_path(current_user), class: 'btn btn-primary pull-right btnNext' if user_signed_in? && @user == current_user

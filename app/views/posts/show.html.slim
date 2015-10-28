@@ -1,35 +1,65 @@
-.row
-  br
-  .col-md-2.col-sm-3.text-center
-    = link_to user_path(@post.user), class: 'story-img'
-      img.img-circle src="//placehold.it/100" style="width:100px;height:100px" /
-  .col-md-10.col-sm-9
-    h3
-      = @post.title.titleize
-    .row
-      .col-xs-9
-        p
-          = @post.post.html_safe
-        p
-          | Por
-          = link_to @post.user.name, @post.user
+/! Page Content
+.container
+  .row
+    /! Blog Post Content Column
+    .col-lg-8
+      /! Blog Post
+      /! Title
+      h1
+        = @post.title.titleize
+      /! Author
+      p.lead
+        | por
+        = link_to @post.user.name, @post.user
+      hr
+      /! Date/Time
+      p
+        span.glyphicon.glyphicon-time
+        | Postagem:
+        - if @post.scheduled_to > Date.today
+          = "Agendado para #{@post.scheduled_to}"
+        - else
+          = time_ago_in_words(@post.scheduled_to)
+      hr
+      /! Post Content
+      = @post.post
+      hr
+      /! Blog Comments
+      - @post.comments.each do |comment|
+        = render partial: 'posts/shared/comment', locals: {comment: comment} unless comment.new_record?
+      /! Comments Form
 
-        ul.list-inline
-          li
-            a href="#"
-              = @post.scheduled_to
-          li
-            a href="#"
-              i.glyphicon.glyphicon-comment
-              = "#{@post.comments.count} Comentários"
-      .col-xs-3
-    br
-    br
-  hr
+      .well
+        h4 Deixe um comentário:
+        form role="form"
+        = form_for([@post.user, @post, @comment], html: {role: 'form'}) do |f|
+
+          .form-group
+            = f.text_field :name, class: 'form-control', placeholder: 'Nome'
+            - if @comment.errors[:name].any?
+              p
+                = @comment.errors[:name].map{|p| p.titleize }.join(', ')
+          .form-group
+            = f.email_field :email, class: 'form-control', placeholder: 'E-mail'
+            - if @comment.errors[:email].any?
+              p
+                = @comment.errors[:email].map{|p| p.titleize }.join(', ')
+          .form-group
+            = f.text_area :comment, rows: 3, class: 'form-control', placeholder: 'Comentário'
+            - if @comment.errors[:comment].any?
+              p
+                = @comment.errors[:comment].map{|p| p.titleize }.join(', ')
+          = f.submit 'Enviar', class: 'btn btn-primary'
+      hr
+      /! Posted Comments
+      /! Comment
+
+  /! End Nested Comment
+
   .col-md-12.col-md-offset-3
     = link_to 'Voltar', :back, :class => 'btn btn-default'
     - if user_signed_in? && current_user == @post.user
-      = link_to 'Editar', edit_post_path(@post), :class => 'btn btn-default'
-      = link_to 'Apagar', post_path(@post), :method => "delete", :data => {:confirm => 'Tem certeza?'}, :class => 'btn btn-danger'
+      = link_to 'Editar', edit_user_post_path(current_user, @post), :class => 'btn btn-default'
+      = link_to 'Apagar', user_post_path(current_user, @post), :method => "delete", :data => {:confirm => 'Tem certeza?'}, :class => 'btn btn-danger'
 
 

@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     if user_signed_in? && current_user == @user
       @posts = current_user.posts.page(page).per(5)
     else
-      @posts = current_user.posts.where(
+      @posts = @user.posts.where(
           'scheduled_to <= :today',
           :today => Date.today
       ).page(page).per(5)

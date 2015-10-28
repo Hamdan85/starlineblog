@@ -11,9 +11,8 @@
  * file per style scope.
  *
  *= require bootstrap
- *= require styles
- *= require jquery-ui
  *= require bootstrap-wysihtml5
+ *= require bootstrap-datetimepicker
  *= require_tree .
  *= require_self
  */

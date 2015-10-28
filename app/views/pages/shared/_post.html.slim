@@ -21,7 +21,7 @@
             a href="#"
               = post.scheduled_to
           li
-            a href="#"
+            = link_to user_post_path(post.user, post)
               i.glyphicon.glyphicon-comment
               = "#{post.comments.count} Comentários"
       .col-xs-3
