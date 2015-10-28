@@ -61,4 +61,6 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
 gem 'friendly_id'
 gem 'font-awesome-sass'
 gem 'font-awesome-rails'
-
+group :production do
+  gem 'rails_12factor'
+end
