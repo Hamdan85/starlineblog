@@ -13,8 +13,8 @@ class UsersController < ApplicationController
       @posts = current_user.posts.page(page).per(5)
     else
       @posts = @user.posts.where(
-          'scheduled_to <= :today',
-          :today => Date.today
+          'scheduled_to <= :now',
+          :now => Time.zone.now
       ).page(page).per(5)
     end
   end
