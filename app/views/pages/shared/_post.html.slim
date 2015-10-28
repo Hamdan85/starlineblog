@@ -19,7 +19,7 @@
         ul.list-inline
           li
             a href="#"
-              - if post.scheduled_to > Time.now.utc
+              - if post.scheduled_to > Time.now
                 = "Agendado para #{post.scheduled_to}"
               - else
                 = "Publicado a #{time_ago_in_words(post.scheduled_to)}"
