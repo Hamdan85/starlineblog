@@ -24,6 +24,7 @@
       /! Post Content
       = @post.post
       hr
+      h2 Comentários
       /! Blog Comments
       - @post.comments.each do |comment|
         = render partial: 'posts/shared/comment', locals: {comment: comment} unless comment.new_record?
