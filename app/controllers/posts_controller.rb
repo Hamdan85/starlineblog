@@ -7,7 +7,7 @@ class PostsController < ApplicationController
   def show
     @comment = @post.comments.new
 
-    redirect_to user_path(@post.user) unless @post.scheduled_to < Time.now || (user_signed_in? && @post.user == current_user)
+    redirect_to user_path(@post.user) unless @post.scheduled_to < Time.zone.now || (user_signed_in? && @post.user == current_user)
   end
 
   # GET /posts/new
