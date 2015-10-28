@@ -19,7 +19,12 @@
         ul.list-inline
           li
             a href="#"
-              = post.scheduled_to
+              - if post.scheduled_to > Time.now
+                = "Agendado para #{post.scheduled_to}"
+              - else
+                = "Publicado a #{time_ago_in_words(post.scheduled_to)}"
+
+
           li
             = link_to user_post_path(post.user, post)
               i.glyphicon.glyphicon-comment
